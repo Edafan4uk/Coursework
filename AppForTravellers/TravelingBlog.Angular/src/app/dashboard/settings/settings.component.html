@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="row">
+    <div class="card">
+      <div class="card-header bg-dark">
+        <h2>Settings</h2>
+      </div>
+      <div class="card-body">
+        <ul class="nav nav-tabs justify-content-center nav-justified" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#menu0">Password</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu5">Email</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu1">Name</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu3">Photo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu4">Private info</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+
+          <!-- password part -->
+          <div id="menu0" class="container tab-pane active"><br>
+            <div class="row">
+              <div class="card-body">
+                <h3>Change password</h3>
+                <div class="form-group">
+                  <label for="password1"><b>Enter current password</b></label>
+                  <input id="password1" type="password" class="form-control" name="password" placeholder="Enter current password" [(ngModel)]="user.currentPassword">
+                </div>
+                <div class="form-group">
+                  <label for="password2"><b>New password</b></label>
+                  <input id="password2" type="password" class="form-control" name="password" placeholder="New password" [(ngModel)]="user.newPassword">
+                </div>
+                <button type="button" class="btn btn-info btn-lg btn-block" (click)="saveChange()">Save changes</button>
+              </div> 
+            </div>
+          </div>
+
+          <!-- email part -->
+          <div id="menu5" class="container tab-pane"><br>
+            <div class="row">
+              <div class="card-body">
+                <h3>Change email</h3>
+                <div class="form-group">
+                  <label for="currentEmail"><b>Enter current password</b></label>
+                  <input id="currentEmail" type="text" class="form-control" name="email" placeholder="Enter current email" [(ngModel)]="user.currentPassword">
+                </div>
+                <div class="form-group">
+                  <label for="newEmail"><b>New password</b></label>
+                  <input id="newEmail" type="text" class="form-control" name="email" placeholder="Enter new email" [(ngModel)]="user.newPassword">
+                </div>
+                <button type="button" class="btn btn-info btn-lg btn-block" (click)="saveChange()">Save changes</button>
+              </div> 
+            </div>
+          </div>
+
+          <!-- Enter firstName, lastName part-->
+          <div id="menu1" class="container tab-pane"><br>
+            <div class="row" >
+              <div class="card-body">
+                <h3>Change first-last-name:</h3>
+                <div class="form-group"> 
+                  <label for="first-name"><b>Change first name</b></label>
+                  <input type="text" class="form-control" id="first-name" placeholder="Your first name" name="firstName" [(ngModel)]="user.firstName">
+                </div>
+                <div class="form-group"> 
+                  <label for="last-name"><b>Change Last name</b></label>
+                  <input type="text" class="form-control" id="last-name" placeholder="Your last name" name="lastName" [(ngModel)]="user.lastName">
+                </div>
+                  <input type="button" (click)="saveChange()" class="btn btn-info btn-lg btn-block" value="Save Changes"/>
+                </div>
+              </div> 
+            </div>
+          
+            <!-- Change photo  -->
+            <div id="menu3" class="container tab-pane"><br>
+              <div class="row" >
+                <div class="card-body">
+                  <h3>Change photo</h3>
+                  <div class="userimg">
+                    <img *ngIf="homeDetails.pictureUrl" src="{{homeDetails?.pictureUrl}}" class="rounded-circle"/>
+                    <img *ngIf="!homeDetails.pictureUrl" src="../../../assets/images/UserImg/images.png" class="rounded-circle">                   </div>
+                    <div class="custom-file">
+                        <!-- <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx"> -->
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                      <input #imageInput accept="image/" type="file"  id="validatedCustomFile" (change)="processFile(imageInput)">
+                      <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    </div>
+                    <button type="button" (click)="onFileChanged()" class="btn btn-info btn-lg btn-block" >Save changes</button>
+
+                    <!-- (click)='onUpload()' -->
+                </div> 
+              </div>
+            </div>
+
+            <!--User private info -->
+            <div id="menu4" class="container tab-pane"><br>
+              <div class="row" >
+                <div class="card-body">
+                    <input type="button" (click)="saveChange()" class="btn btn-info btn-lg btn-block" value="Save Changes"/>
+                  </div>
+                </div> 
+              </div>
+
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

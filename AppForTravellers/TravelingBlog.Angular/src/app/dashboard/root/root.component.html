@@ -1,0 +1,26 @@
+<div class="container-fluide">
+  <div class="row content">
+    <div class="col-sm-2  sidenavleft nav-pills leftbar bg-dark">
+      <h3 class="new">
+          Subscribs
+      </h3>
+      <hr>
+      <div class="ex2">
+        <a *ngFor="let s of subscriberDetails" class="nav-link" href="#" routerLinkActive="active" routerLink="/user/{{ s.subcriberId }}">
+          <!-- <img *ngIf="homeDetails.pictureUrl" src="{{homeDetails?.pictureUrl}}" class="rounded-circle"/> -->
+          <img src="../../../assets/images/UserImg/images.png" class="rounded-circle">  
+          {{s.firstName}} {{s.lastName}}
+        </a>
+      </div>
+      <hr> 
+    </div>
+    <div class="col-sm-8">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="col-sm-2 sidenav bg-dark" id="mySidenav">
+      <a href="#" routerLinkActive="active" routerLink="/dashboard/home">Home</a>
+      <a href="#" routerLinkActive="active" routerLink="/dashboard/trips">My Trips</a>
+      <a href="#" routerLinkActive="active" routerLink="/dashboard/settings">Settings</a>
+    </div>
+  </div>
+</div>

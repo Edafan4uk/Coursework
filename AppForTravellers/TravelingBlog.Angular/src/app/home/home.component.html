@@ -1,0 +1,222 @@
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Quicksand');
+</style>
+<header>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+      <div class="carousel-item active" style="background-image: url('assets/images/carousel-img/7.jpg')">
+
+        <div class="carousel-caption d-none d-md-block">
+          <h3 class="display-4">Travels inspire us to adventure</h3>
+          <p class="lead">Why us? Our travel blog will help you in organizing a wonderful trip for you.</p>
+        </div>
+      </div>
+      <div class="carousel-item" style="background-image: url('assets/images/carousel-img/4.jpg')">
+        <div class="carousel-caption d-none d-md-block">
+          <h3 class="display-4">Wanna share emotions with other travellers?</h3>
+          <p class="lead">Create a trip and tell everything about your journey. Don`t forget to add photo,
+            descriptions!</p>
+        </div>
+      </div>
+      <div class="carousel-item" style="background-image: url('assets/images/carousel-img/5.jpg')">
+        <div class="carousel-caption d-none d-md-block">
+          <h3 class="display-4">Let`s start! </h3>
+          <p class="lead">Discover the world with us! Read blogs, get inspired and plan your trip!</p>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</header>
+
+<div class="trip-main">
+  <div class="section-heading">
+    <h2 class="section-title">Our popular trips!</h2>
+  </div>
+  <div class="services_cards">
+    <div *ngFor="let tr of bestTrip">
+      <div class="services_c">
+        <blockquote class="testimonial.m-img">
+          <img src="assets/images/user-img/user-3.jpg" alt="User">
+        </blockquote>
+        <blockquote class="testimonial-img">
+          <img src="assets/images/user-img/user-1.jpg" class="rounded-circle" alt="User" />
+          {{tr.firstName}}
+          {{tr.lastName}}
+        </blockquote>
+        <div class="class-name">
+          {{ tr?.name }}
+        </div>
+        <div class="description">
+          {{tr?.description}}
+        </div>
+        <div class="horiz-scroll">
+            <blockquote class="flags-img">
+              <img src="assets/images/flag-img/ukraine_flag.png" alt="User" />
+              <blockquote class="flags-img1">
+                <img src="assets/images/flag-img/netherland_flag.jpg" alt="User" />
+              </blockquote>
+              <blockquote class="flags-img1">
+                  <img src="assets/images/flag-img/usa_flag.png" alt="User" />
+                </blockquote>
+            </blockquote>
+          </div>
+        <fieldset class="rating">
+          <div>Rating: {{ tr?.ratingTrip}}</div>
+          <input type="radio" id="btn5" [name]="inputName" [value]="5" [checked]="rating==5" />
+          <label title="Very good" (click)="getValue(tr.id,5)">5 stars</label>
+
+          <input type="radio" id="btn4" [name]="inputName" [value]="4" [checked]="rating==4" />
+          <label title="Pretty good" (click)="getValue(tr.id,4)">4 stars</label>
+
+          <input type="radio" id="btn3" [name]="inputName" [value]="3" [checked]="rating==3" />
+          <label title="That`s ok" (click)="getValue(tr.id,3)">3 stars</label>
+
+          <input type="radio" id="btn2" [name]="inputName" [value]="2" [checked]="rating==2" />
+          <label title="Not bad" (click)="getValue(tr.id,2)">2 stars</label>
+
+          <input type="radio" id="btn1" [name]="inputName" [value]="1" [checked]="rating==1" />
+          <label title="Bad" (click)="getValue(tr.id,1)">1 star</label>
+        </fieldset>
+        <div class="about-btn">
+          <input class="about-view packages-btn" type="button" value="Go to trip" onclick="window.location.href='/fulltrip/idTrip'" />
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="portfolios" class="section-padding">
+  <div class="container">
+    <h2 class="section-title" data-wow-delay="0.4s">Countries and places which inspire</h2>
+    <div class="row">
+      <div id="portfolio" class="row" data-wow-delay="0.4s">
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development print">
+          <div class="portfolio-item">
+            <div class="shot-item">
+              <img src="assets/images/block-img/7.jpg" alt="" />
+              <div class="overlay">
+                <div class="icons">
+                  <a class="lightbox preview" href="assets/images/block-img/7.jpg" data-fancybox="block-img" data-title="Image #1">
+                    <i class="icon-preview" title="Full-screen window"></i>
+                  </a>
+                  <a class="link" href="#">
+                    <i class="icon-link" title="Go to trip"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix design print">
+          <div class="portfolio-item">
+            <div class="shot-item">
+              <img src="assets/images/block-img/2.jpg" alt="" />
+              <div class="overlay">
+                <div class="icons">
+                  <a class="lightbox preview" href="assets/images/block-img/2.jpg" data-fancybox="block-img" data-title="Image #2">
+                    <i class="icon-preview" title="Full-screen window"></i>
+                  </a>
+                  <a class="link" href="#">
+                    <i class="icon-link" title="Go to trip"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development">
+          <div class="portfolio-item">
+            <div class="shot-item">
+              <img src="assets/images/block-img/3.jpg" alt="" />
+              <div class="overlay">
+                <div class="icons">
+                  <a class="lightbox preview" href="assets/images/block-img/3.jpg" data-fancybox="block-img" data-title="Image #3">
+                    <i class="icon-preview" title="Full-screen window"></i>
+                  </a>
+                  <a class="link" href="#">
+                    <i class="icon-link" title="Go to trip"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development design">
+          <div class="portfolio-item">
+            <div class="shot-item">
+              <img src="assets/images/block-img/4.jpg" alt="" />
+              <div class="overlay">
+                <div class="icons">
+                  <a class="lightbox preview" href="assets/images/block-img/4.jpg" data-fancybox="block-img" data-title="Image #4">
+                    <i class="icon-preview" title="Full-screen window"></i>
+                  </a>
+                  <a class="link" href="#">
+                    <i class="icon-link" title="Go to trip"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development">
+          <div class="portfolio-item">
+            <div class="shot-item">
+              <img src="assets/images/block-img/5.jpg" alt="" />
+              <div class="overlay">
+                <div class="icons">
+                  <a class="lightbox preview" href="assets/images/block-img/5.jpg" data-fancybox="block-img" data-title="Image #5">
+                    <i class="icon-preview" title="Full-screen window"></i>
+                  </a>
+                  <a class="link" href="#">
+                    <i class="icon-link" title="Go to trip"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix print design">
+          <div class="portfolio-item">
+            <div class="shot-item">
+              <img src="assets/images/block-img/6.jpg" alt="" />
+              <div class="overlay">
+                <div class="icons">
+                  <a class="lightbox preview" href="assets/images/block-img/6.jpg" data-fancybox="block-img" data-title="Image #6">
+                    <i class="icon-preview" title="Full-screen window"></i>
+                  </a>
+                  <a class="link" href="#">
+                    <i class="icon-link" title="Go to trip"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<form>
+  <div class="button-section">
+
+    <h3>Let`s register and start your advantures!</h3>
+    <input class="registrationButton" type="button" value="Register" onclick="window.location.href='/register'" />
+    <br>
+    <br>
+  </div>
+</form>

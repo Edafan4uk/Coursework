@@ -1,0 +1,45 @@
+<body>  
+  <div class="toBeCentered"*ngFor="let trip of trips | paginate: { id:'server', itemsPerPage: 10, currentPage: page ,totalItems:total}">
+      <article class="post">
+          <header >
+              <div class="title">
+                  <h2><a routerLink="/fulltrip/{{trip.id}}">{{trip.name}}</a></h2>
+                </div>
+              <div class="meta">
+                  <a routerLink="/user/{{trip.user.id}}" class="author">
+                    <span class="name">{{trip.user.firstName}} {{trip.user.lastName}}</span>
+                    <img *ngIf = "trip.user.pictureUrl" src="{{trip.user.pictureUrl}}" />
+                    <img *ngIf = "!trip.user.pictureUrl" src = "../../../assets/images/UserImg/images.png" />
+                </a>
+              </div>
+          </header>
+          <p>{{trip.description}}</p>
+          <footer>
+              <ul class="actions">
+                <li>
+                    <a class="button large" routerLink="/fulltrip/{{trip.id}}">Continue</a>
+                </li>
+              
+                
+                <li *appHasRole="['Admin','Moderator']">
+                    <a class="button large" routerLink="/edit/trip/{{trip.id}}">Edit</a>
+                </li>
+
+                <li *appHasRole="['Admin','Moderator']">
+                    <a class="button large" (click)="deleteTrip(trip)">Delete</a>
+                </li>
+                
+              </ul>
+              <ul class="stats">
+                  <li class="superStarRating">
+                        <div class="star-rating">
+                            <span [ngStyle]="{'width': getWidthForStars(trip)+'%'}"  ></span>
+                        </div>
+                  </li>
+                  <li><a href="#" class="icon fa-comment">{{trip.commentsNumber}}</a></li>
+              </ul>
+          </footer>
+      </article>      
+  </div>
+    <pagination-controls class="pagination" (pageChange)="getPage($event)" id="server" responsive="true"></pagination-controls>
+</body>
