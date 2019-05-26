@@ -57,7 +57,7 @@ ALTER TRIGGER[dbo].[Trigger1]
         public DbSet<TagTrip> TagTrips { get; set; }
         public DbSet<Trip> Trips { get; set; }
         public DbSet<UserImage> UserImages { get; set; }
-
+        public DbSet<Avatar> Avatars { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -80,6 +80,7 @@ ALTER TRIGGER[dbo].[Trigger1]
             modelBuilder.ApplyConfiguration(new CountryPostBlogConfiguration());
             modelBuilder.ApplyConfiguration(new UserImageConfiguration());
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+            modelBuilder.ApplyConfiguration(new AvatarConfiguration());
         }
 
     }

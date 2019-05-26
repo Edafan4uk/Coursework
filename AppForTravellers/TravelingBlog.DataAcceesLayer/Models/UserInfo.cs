@@ -22,6 +22,7 @@ namespace TravelingBlog.DataAcceesLayer.Models.Entities
         public int? CountryId { get; set; }
         public Country Country { get; set; }
         public UserImage UserImage { get; set; }
+        public Avatar Avatar { get; set; }
         public ICollection<Subscription> RelationWithUserIdNavigation { get; set; }
         public ICollection<Subscription> RelationWithSubscriberIdNavigation { get; set; }
         public ICollection<Trip> Trips { get; set; }

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -79,14 +81,17 @@ namespace TravelingBlog.Controllers
             }
 
             // UserInfo user = await unitOfWork.Users.GetUserByIdAsync(id);
-            UserInfo user = unitOfWork.GetRepository<UserInfo>().Get(id);
+            UserInfo user = await unitOfWork.GetRepository<UserInfo>()
+                .GetAll()
+                .Include(u => u.Avatar)
+                .FirstOrDefaultAsync(u => u.Id == id);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            AppUser picture = await userManager.FindByIdAsync(user.IdentityId);
+            //AppUser picture = await userManager.FindByIdAsync(user.IdentityId);
 
             string countryName = string.Empty;
             if (user.CountryId != null)
@@ -101,7 +106,8 @@ namespace TravelingBlog.Controllers
                 firstName = user.FirstName,
                 lastName = user.LastName,
                 location = countryName,
-                pictureUrl = picture.PictureUrl
+                pictureUrl = !(user.Avatar is null) ? Convert.ToBase64String(user.Avatar.Content) :
+                  null
             };
 
             return Ok(UserInfo);

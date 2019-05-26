@@ -9,5 +9,6 @@ namespace TravelingBlog.BusinessLogicLayer.ModelsServices.Contracts
     {
         void EditPhoto (SettingDTO settingDTO);
         void EditUserName(SettingDTO settingDTO);
+        void AddPhotoToDb(AvatarDto dto);
     }
 }

@@ -4,9 +4,12 @@ using System.Linq;
 using TravelingBlog.BusinessLogicLayer.ModelsServices.Contracts;
 using TravelingBlog.BusinessLogicLayer.SecondaryServices.AzureStorage;
 using TravelingBlog.BusinessLogicLayer.SecondaryServices.LoggerService;
+using TravelingBlog.DataAcceesLayer.Models;
 using TravelingBlog.DataAcceesLayer.Models.Entities;
 using TravelingBlog.DataAcceesLayer.Repositories.Contracts;
 using TravelingBlog.Models.ViewModels.DTO;
+using System;
+using Microsoft.AspNetCore.Http;
 
 namespace TravelingBlog.BusinessLogicLayer.ModelsServices
 {
@@ -14,12 +17,16 @@ namespace TravelingBlog.BusinessLogicLayer.ModelsServices
     {
         public IAzureBlob azureBlob;
         readonly IUnitOfWork unitOfWork;
-        public SettingsService(IUnitOfWork unitOfWork, ILoggerManager logger, IMapper mapper)
+        private readonly IHttpContextAccessor http;
+        public SettingsService(IUnitOfWork unitOfWork, ILoggerManager logger, IMapper mapper,
+            IHttpContextAccessor contextAccessor)
         {
             this.unitOfWork = unitOfWork;
+            http = contextAccessor;
         }
 
         private IRepository<UserInfo> UserRepository => unitOfWork.GetRepository<UserInfo>();
+        private IRepository<Avatar> AvatarRepository => unitOfWork.GetRepository<Avatar>();
         public void EditPhoto(SettingDTO settingDTO)
         {
             var image = unitOfWork.GetRepository<UserInfo>().GetAll().Where(u => u.IdentityId == settingDTO.Id)
@@ -63,6 +70,40 @@ namespace TravelingBlog.BusinessLogicLayer.ModelsServices
                 }
             }
             unitOfWork.Complete();
+        }
+
+        public void AddPhotoToDb(AvatarDto dto)
+        {
+            if (dto == null)
+                throw new ArgumentNullException();
+
+            
+
+            var userName = http.HttpContext.User.Claims.FirstOrDefault(c => c.Type.ToString() == "id")?.Value;
+
+            var avat = AvatarRepository
+                .Find(a => a.User.IdentityId == userName);
+
+            var user = UserRepository
+                .Find(u => u.IdentityId == userName);
+            
+            if(avat == null)
+            {
+                avat = new Avatar
+                {
+                    User = user,
+                    Content = dto.Content
+                };
+                AvatarRepository
+                    .Add(avat);
+            }
+            else
+            {
+                avat.Content = dto.Content;
+                AvatarRepository.Update(avat);
+            }
+
+            unitOfWork.Complete();        
         }
     }
 }

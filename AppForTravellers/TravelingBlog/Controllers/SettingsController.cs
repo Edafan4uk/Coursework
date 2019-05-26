@@ -52,44 +52,60 @@ namespace TravelingBlog.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("upload")]
-        public async Task<IActionResult> EditPhoto(IList<IFormFile> files)//UserPhotoDTO userPhotoDTO
+        //[HttpPost]
+        //[Route("upload")]
+        //public async Task<IActionResult> EditPhoto(IList<IFormFile> files)//UserPhotoDTO userPhotoDTO
+        //{
+        //    #region ff
+        //    SettingDTO settingDTO = new SettingDTO();
+        //    var userId = caller.Claims.Single(c => c.Type == "id");
+        //    var user = settingDTO.Id = userId.Value;
+        //    var imagesPathes = new List<string>();
+
+        //    //if (!azureBlob.CheckFile(settingDTO.formFile))
+        //    //    return BadRequest("eroor");
+
+        //    foreach (var formFile in files)
+        //    {
+        //        if (formFile.Length <= 0)
+        //        {
+        //            continue;
+        //        }
+        //        using (var ms = new MemoryStream())
+        //        {
+        //            formFile.CopyTo(ms);
+        //            var fileBytes = ms.ToArray();
+        //            var container = azureBlob.GetBlobContainer(blob.StorageConnectionString, userId.Value);
+        //            var blockBlob = azureBlob.GetBlockBlobAsync(formFile.FileName, container, fileBytes);
+        //            string path = await blockBlob;
+
+        //            imagesPathes.Add(path);
+        //        }
+        //    }
+        //    var imageDTOList = new List<SettingDTO>();
+
+        //    for (var i = 0; i < imagesPathes.Count; i++)
+        //    {
+        //        settingDTO.PhotoUser = imagesPathes[i];
+        //    }
+        //    settingsService.EditPhoto(settingDTO);
+        //    #endregion
+        //    return Ok(true);
+        //}
+        [HttpPost("upload")]
+        public async Task<IActionResult> Post(IFormFile file)
         {
-            #region ff
-            SettingDTO settingDTO = new SettingDTO();
-            var userId = caller.Claims.Single(c => c.Type == "id");
-            var user = settingDTO.Id = userId.Value;
-            var imagesPathes = new List<string>();
-
-            //if (!azureBlob.CheckFile(settingDTO.formFile))
-            //    return BadRequest("eroor");
-
-            foreach (var formFile in files)
+            AvatarDto dto = new AvatarDto();
+            
+            using(MemoryStream stream = new MemoryStream())
             {
-                if (formFile.Length <= 0)
-                {
-                    continue;
-                }
-                using (var ms = new MemoryStream())
-                {
-                    formFile.CopyTo(ms);
-                    var fileBytes = ms.ToArray();
-                    var container = azureBlob.GetBlobContainer(blob.StorageConnectionString, userId.Value);
-                    var blockBlob = azureBlob.GetBlockBlobAsync(formFile.FileName, container, fileBytes);
-                    string path = await blockBlob;
+                await file.CopyToAsync(stream);
 
-                    imagesPathes.Add(path);
-                }
+                dto.Content = stream.ToArray();
             }
-            var imageDTOList = new List<SettingDTO>();
 
-            for (var i = 0; i < imagesPathes.Count; i++)
-            {
-                settingDTO.PhotoUser = imagesPathes[i];
-            }
-            settingsService.EditPhoto(settingDTO);
-            #endregion
+            settingsService.AddPhotoToDb(dto);
+
             return Ok(true);
         }
     }

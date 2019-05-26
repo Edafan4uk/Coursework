@@ -84,7 +84,7 @@
                 <div class="card-body">
                   <h3>Change photo</h3>
                   <div class="userimg">
-                    <img *ngIf="homeDetails.pictureUrl" src="{{homeDetails?.pictureUrl}}" class="rounded-circle"/>
+                    <img *ngIf="homeDetails.pictureUrl" src="data:image/jpeg;base64,{{homeDetails?.pictureUrl}}" class="rounded-circle"/>
                     <img *ngIf="!homeDetails.pictureUrl" src="../../../assets/images/UserImg/images.png" class="rounded-circle">                   </div>
                     <div class="custom-file">
                         <!-- <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx"> -->

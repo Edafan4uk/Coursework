@@ -86,6 +86,8 @@ namespace TravelingBlog
 
             services.TryAddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddHttpContextAccessor();
+
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
             // Configure JwtIssuerOptions
             services.Configure<JwtIssuerOptions>(options =>
@@ -149,7 +151,6 @@ namespace TravelingBlog
             builder.AddRoleValidator<RoleValidator<Role>>();
             builder.AddRoleManager<RoleManager<Role>>();
             builder.AddSignInManager<SignInManager<AppUser>>();
-
             services.AddMvc(options=> 
             {
                 options.Filters.Add(new ServiceFilterAttribute(typeof(ValidationFilterAttribute)));
@@ -182,6 +183,7 @@ namespace TravelingBlog
 
             app.UseStaticFiles();
 
+            
             app.UseMvc();
 
             seeder.SeedUsers();

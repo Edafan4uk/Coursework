@@ -33,8 +33,10 @@ export class HomeComponent implements OnInit {
       .subscribe((homeDetails: HomeDetails) => {
         this.homeDetails = homeDetails;
         console.log(this.homeDetails)
-        if(homeDetails.pictureUrl)
-          this.homeDetails.pictureUrl = 'https://travelpictures.blob.core.windows.net' + this.homeDetails.pictureUrl;
+        if(homeDetails.pictureUrl){
+          console.log(homeDetails)
+          this.homeDetails.pictureUrl = homeDetails.pictureUrl;
+        }
       },
         error => {
           // this.notificationService.printErrorMessage(error);

@@ -110,7 +110,7 @@ export class DashboardService extends BaseService {
     let headers = new Headers();
     let authToken = localStorage.getItem('auth_token');
     headers.append('Authorization', `Bearer ${authToken}`);
-    formData.append('files', image);
+    formData.append('file', image);
 
     console.log(formData);
     return this.http.post(this.baseUrl + '/api/settings/upload', formData, {headers})

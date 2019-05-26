@@ -34,7 +34,6 @@ ngOnInit() {
     this.dashboardService.getHomeDetails()
       .subscribe((homeDetails: HomeDetails) => {
         this.homeDetails = homeDetails;
-        this.homeDetails.pictureUrl = 'https://travelpictures.blob.core.windows.net' + this.homeDetails.pictureUrl;
       });
   }
 

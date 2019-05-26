@@ -69,5 +69,15 @@ namespace TravelingBlog.BusinessLogicLayer.ModelsServices
 
             unitOfWork.Complete();
         }
+        public async Task<UserInfo> GetUserWithAvatar(string identityId)
+        {
+            var user = await unitOfWork.GetRepository<UserInfo>()
+                .GetAll()
+                .Include(u => u.Avatar)
+                .Include(u=>u.Identity)
+                .FirstOrDefaultAsync(u => u.IdentityId == identityId);
+
+            return user;
+        }
     }
 }

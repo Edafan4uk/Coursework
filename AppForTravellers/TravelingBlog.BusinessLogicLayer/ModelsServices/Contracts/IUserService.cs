@@ -7,5 +7,6 @@ namespace TravelingBlog.BusinessLogicLayer.ModelsServices.Contracts
     public interface IUserService:IService<UserInfo,UserFilter>
     {
         Task<UserInfo> GetUserInfoIncludingIdentity(string identityId);
+        Task<UserInfo> GetUserWithAvatar(string identityId);
     }
 }

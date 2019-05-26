@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -31,16 +32,21 @@ namespace TravelingBlog.Controllers
         {
             var userId = caller.Claims.Single(c => c.Type == "id");
 
-            var user = await _userService.GetUserInfoIncludingIdentity(userId.Value);                   
+            var user = await _userService.GetUserWithAvatar(userId.Value);
 
-            return new OkObjectResult(new
+            var url = !(user.Avatar?.Content is null) ? Convert.ToBase64String(user.Avatar.Content) : null;
+                  
+
+            var model = new
             {
                 Message = "This is secure API and user data!",
                 user.FirstName,
                 user.LastName,
-                PictureUrl = user.UserImage==null?null:user.UserImage.Path,
+                PictureUrl = url,
                 user.Identity.FacebookId
-            });
+            };
+
+            return new OkObjectResult(model);
         }
     }
 }
